@@ -18,15 +18,17 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FragmentTransaction fragmentTransaction;
-    private FragmentManager fragmentManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /*Display icon in the toolbar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.sens_vit);
+        getSupportActionBar().setDisplayUseLogoEnabled(true); */
 
         /* adding menu */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -38,45 +40,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /* set main frame on start */
-        fragmentManager = getSupportFragmentManager();
-        loadFragment(0);
-
-    }
-
-    // changes the view in the app
-    public void loadFragment(int i) {
-        // main frame
-        if(i == 0) {
-            MainFragment mainFragment = new MainFragment();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentholder, mainFragment);
-            fragmentTransaction.commit();
-        }
-        // add new sensor
-        else if (i == 1) {
-            AddSensorFragment addSensorFragment = new AddSensorFragment();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentholder, addSensorFragment);
-            fragmentTransaction.commit();
-        }
-        // view sensor (clicking sensor from main frame)
-        else if (i == 2) {
-            SensorViewFragment sensorViewFragment = new SensorViewFragment();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentholder, sensorViewFragment);
-            fragmentTransaction.commit();
-        }
-
-    }
-    // add new button from main frame
-    public void addSensorButton(View view) {
-        loadFragment(1);
-    }
-    // clicking a sensor from main frame
-    public void viewSensor(View view) {
-        // TODO Display info from landing page
-        loadFragment(2);
     }
 
     /**************************** MENU OPTIONS *********************************/

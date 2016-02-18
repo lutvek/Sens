@@ -20,8 +20,8 @@
         </activity>
         <activity
             android:name=".Detailed"
-            android:parentActivityName=".MainActivity"
-            ></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".AddSensor"></activity>
     </application>
 
 </manifest>
