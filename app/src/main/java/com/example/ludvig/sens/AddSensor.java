@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.view.View;
 
 public class AddSensor extends AppCompatActivity {
 
@@ -20,5 +21,14 @@ public class AddSensor extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+    }
+    // clicking cancel
+    public void back(View view) {
+        finish();
+    }
+    // clicking accept: adding new sensor to database and updating
+    public void addNewSensor(View view) {
+        // TODO add new sensor to SQLite database and update
+        finish();
     }
 }
