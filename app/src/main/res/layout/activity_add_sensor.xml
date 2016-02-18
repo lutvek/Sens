@@ -44,65 +44,77 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:id="@+id/textView7"
-        android:layout_below="@+id/newSensorID"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"
-        android:paddingTop="20dp"
-        android:textIsSelectable="false" />
+    <LinearLayout
 
-    <Spinner
+        android:id="@+id/sensor_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sensor_spinner"
-        android:layout_below="@+id/textView7"
-        android:spinnerMode="dropdown" />
+        android:layout_below="@id/newSensorID">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Max Temp"
-        android:id="@+id/textView8"
-        android:textSize="20dp"
-        android:layout_below="@+id/sensor_spinner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="20dp"
+            android:textIsSelectable="false" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="7"
-        android:id="@+id/newSensorMax"
-        android:layout_alignBottom="@+id/textView8"
-        android:layout_alignRight="@+id/sensor_spinner"
-        android:layout_alignEnd="@+id/sensor_spinner" />
+        <Spinner
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sensor_spinner"
+            android:spinnerMode="dropdown"
+            android:clickable="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Min Temp"
-        android:id="@+id/textView9"
-        android:layout_below="@+id/newSensorMax"
-        android:layout_marginTop="25dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp" />
+    </LinearLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/max_temp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/editText4"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_alignLeft="@+id/newSensorMax"
-        android:layout_alignStart="@+id/newSensorMax" />
+        android:layout_below="@id/sensor_type">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Max Temp"
+            android:id="@+id/textView8"
+            android:textSize="20dp"
+            android:layout_below="@id/sensor_type" />
+        <EditText
+            android:layout_weight="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="7"
+            android:id="@+id/newSensorMax" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/min_temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/max_temp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Min Temp"
+            android:id="@+id/textView9"
+            android:textSize="20dp" />
+        <EditText
+            android:layout_weight="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/editText4" />
+    </LinearLayout>
+
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,27 +124,25 @@
         android:allowUndo="false"
         android:layout_marginTop="25dp"
         android:enabled="false"
-        android:layout_below="@+id/textView9"
+        android:layout_below="@id/min_temp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/accept_cancel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/button2"
-        android:layout_below="@+id/switch1"
-        android:layout_toRightOf="@+id/textView5"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_marginTop="25dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accept"
-        android:id="@+id/button3"
-        android:layout_alignTop="@+id/button2"
-        android:layout_alignLeft="@+id/editText4"
-        android:layout_alignStart="@+id/editText4" />
+        android:layout_below="@id/switch1">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/button2" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept"
+            android:id="@+id/button3" />
+    </LinearLayout>
 
 </RelativeLayout>
