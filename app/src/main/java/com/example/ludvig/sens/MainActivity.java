@@ -43,10 +43,19 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    // go to add new sensor activity
     public void addSensor(View view) {
         Intent intent = new Intent(this, AddSensor.class);
         startActivity(intent);
     }
+
+    // go to Detailed
+    public void detailedView(View view) {
+        Intent intent = new Intent(this, Detailed.class);
+        startActivity(intent);
+    }
+
+
 
     /**************************** MENU OPTIONS *********************************/
     @Override
