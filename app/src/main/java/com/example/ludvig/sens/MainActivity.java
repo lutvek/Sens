@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity
         // TODO Display info from landing page
         loadFragment(2);
     }
-    /**************************** MENU OPTIONS *********************************/
 
+    /**************************** MENU OPTIONS *********************************/
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
