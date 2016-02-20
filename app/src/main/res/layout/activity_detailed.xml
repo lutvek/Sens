@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_bottom_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="com.example.ludvig.sens.Detailed">
+    tools:context="com.example.ludvig.sens.Detailed"
+    android:background="@color/background">
 
     <TextView
         android:layout_width="wrap_content"
