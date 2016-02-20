@@ -1,0 +1,26 @@
+Inför A3: prioritera UI och Rapport!
+
+*********** UI ***************
+
+	* Färdigställ UI för Detailed aktiviteten
+	* Fixa färger och typsnitt (Ludvig)
+	* Fixa dropdown menu icons och rätt text
+	* Lägg till push notiser switch eller liknande för varje sensor i main aktiviteten
+	* Fixa edit sensor sida
+
+*********** Funktionalitet **************
+
+	* Färdigställ databas för sensorerna 
+	* Lägg till funktionalitet för att lägga till och ta bort sensorer
+	* Fixa så att presetsen "fridge, stove osv ger förinställda värden i max och min temp
+
+*********** Rapport ***************
+
+	* Färdigställ rapportmall med disposition
+	* Gör intervjuer/bullshitta och dokumentera
+	* Argumentera för designvalen
+
+*********** Övrigt *****************
+
+	* Fixa sensorernas uppkoppling mot wifi
+	* Fixa sensorernas kommunikation med mobilen 
