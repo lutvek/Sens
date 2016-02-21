@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity
         tv.setTypeface(face);
         tv = (TextView) findViewById(R.id.sensor_temp2);
         tv.setTypeface(face);
+        tv = (TextView) findViewById(R.id.sensor_small);
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-LightItalic.ttf"));
 
         // add font for button
         Button button = (Button) findViewById(R.id.button);
