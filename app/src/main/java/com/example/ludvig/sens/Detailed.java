@@ -1,5 +1,6 @@
 package com.example.ludvig.sens;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -96,6 +98,16 @@ public class Detailed extends AppCompatActivity {
         axisLeft.setTypeface(face);
         axisLeft.setTextSize(12f);
 
+        LimitLine lowerLimit = new LimitLine(23);
+        lowerLimit.setLineColor(Color.RED);
+        LimitLine upperLimit = new LimitLine(19);
+
+        upperLimit.setLineColor(Color.RED);
+
+        axisLeft.addLimitLine(lowerLimit);
+        axisLeft.addLimitLine(upperLimit);
+
+        // This barely works...
         chart.zoom(1f, 3f, 30, 30);
         chart.moveViewToY(20, YAxis.AxisDependency.LEFT);
 
