@@ -20,7 +20,7 @@
         <activity
             android:name=".Detailed"
             android:screenOrientation="portrait"
-            android:label="Spis?"
+            android:label="Spis"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddSensor"
