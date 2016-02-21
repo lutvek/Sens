@@ -16,6 +16,7 @@
         android:background="@drawable/border">
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/gray"
             android:id="@+id/sensor_small"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -23,10 +24,10 @@
             android:text="Sensor"/>
         <ImageView
             android:src="@drawable/note_grey"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="40dp"
             android:layout_marginEnd="40dp" />
@@ -47,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Spis"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:id="@+id/sensor_name1"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -93,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Frys"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:id="@+id/sensor_name2"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -123,14 +124,13 @@
     </RelativeLayout>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Sensor"
         android:textColor="@color/colorPrimary"
         android:id="@+id/button"
         android:onClick="addSensor"
-        android:background="@color/gray"
+        android:background="@drawable/button1"
         android:layout_marginBottom="50dp"
         android:paddingRight="7dp"
         android:paddingLeft="7dp"
