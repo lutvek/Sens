@@ -1,0 +1,9 @@
+Rubrik 1 (stor rubrik) : Light 300
+
+Rubrik 2 (underrubrik) : Bold 700 italic
+
+Brödtext: light 300
+
+Buttons: Semi bold 600
+
+ifylls-text: light 300

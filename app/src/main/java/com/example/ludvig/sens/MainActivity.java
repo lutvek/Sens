@@ -1,6 +1,7 @@
 package com.example.ludvig.sens;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,11 +29,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*Display icon in the toolbar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.sens_vit);
-        getSupportActionBar().setDisplayUseLogoEnabled(true); */
-
         /* adding menu */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +38,28 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // add fonts to page
+        addFonts();
+
+    }
+
+    private void addFonts() {
+        // add fonts for sensors
+        TextView tv = (TextView) findViewById(R.id.sensor_name1);
+        Typeface face = Typeface.createFromAsset(getAssets(),
+                "fonts/Raleway-Light.ttf");
+        tv.setTypeface(face);
+        tv = (TextView) findViewById(R.id.sensor_name2);
+        tv.setTypeface(face);
+        tv = (TextView) findViewById(R.id.sensor_temp1);
+        tv.setTypeface(face);
+        tv = (TextView) findViewById(R.id.sensor_temp2);
+        tv.setTypeface(face);
+
+        // add font for button
+        Button button = (Button) findViewById(R.id.button);
+        button.setTypeface(face);
 
     }
 
