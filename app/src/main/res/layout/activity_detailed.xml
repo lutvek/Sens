@@ -14,8 +14,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="21 C°"
-            android:textSize="32sp"
+            android:text="21 °C"
+            android:textSize="50sp"
+            android:textColor="@color/colorPrimary"
             android:id="@+id/TVtemp"
             android:layout_centerInParent="true" />
 
@@ -24,8 +25,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Spis"
-
             android:id="@+id/TVname"
+            android:textColor="@color/black"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/TVtemp" />
 
