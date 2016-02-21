@@ -2,10 +2,11 @@ Inför A3: prioritera UI och Rapport!
 
 *********** UI ***************
 
-	* Färdigställ UI för Detailed aktiviteten
-	* Fixa färger och typsnitt (Ludvig)
-	* Fixa dropdown menu icons och rätt text
-	* Lägg till push notiser switch eller liknande för varje sensor i main aktiviteten
+	* Färdigställ UI för Detailed aktiviteten (Henry)
+FINISHED* Fixa färger och typsnitt (Ludvig) 
+	* Fixa dropdown menu icons och rätt text/typsnitt
+	* Ta bort de 3 punkterna i högra hörnet på startsidan
+FINISHED* Lägg till push notiser switch eller liknande för varje sensor i main aktiviteten (Ludvig) 
 	* Fixa edit sensor sida
 
 *********** Funktionalitet **************
@@ -16,7 +17,7 @@ Inför A3: prioritera UI och Rapport!
 
 *********** Rapport ***************
 
-	* Färdigställ rapportmall med disposition
+	* Färdigställ rapportmall med disposition (Ludvig)
 	* Gör intervjuer/bullshitta och dokumentera
 	* Argumentera för designvalen
 
