@@ -1,25 +1,23 @@
-Inför A3: prioritera UI och Rapport!
 
 *********** UI ***************
 
-	* Färdigställ UI för Detailed aktiviteten (Henry)
+FINISHED* Färdigställ UI för Detailed aktiviteten (Henry)
 FINISHED* Fixa färger och typsnitt (Ludvig) 
 	* Fixa dropdown menu icons och rätt text/typsnitt
 	* Ta bort de 3 punkterna i högra hörnet på startsidan
+	* Online visualisering (grön plupp? i högra hörnet)
+	* Scrollable & flippable
+	* Lägg till grader C mellan max temp och min temp
+	* Lägg till dummies för sidmenyns sidor
+	* koppla add sensor
 FINISHED* Lägg till push notiser switch eller liknande för varje sensor i main aktiviteten (Ludvig) 
-	* Fixa edit sensor sida
+FINICHED* Fixa edit sensor sida
 
 *********** Funktionalitet **************
-
-	* Färdigställ databas för sensorerna 
+	
+	* Färdigställ databas för sensorerna SQLite
 	* Lägg till funktionalitet för att lägga till och ta bort sensorer
 	* Fixa så att presetsen "fridge, stove osv ger förinställda värden i max och min temp
-
-*********** Rapport ***************
-
-	* Färdigställ rapportmall med disposition (Ludvig)
-	* Gör intervjuer/bullshitta och dokumentera
-	* Argumentera för designvalen
 
 *********** Övrigt *****************
 
