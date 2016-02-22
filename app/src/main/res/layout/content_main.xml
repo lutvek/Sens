@@ -97,14 +97,12 @@
     </RelativeLayout>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Sensor"
-        android:textColor="@color/colorPrimary"
         android:id="@+id/button"
         android:onClick="addSensor"
-        android:background="@color/gray"
+        android:background="@drawable/button1"
         android:layout_marginBottom="50dp"
         android:paddingRight="7dp"
         android:paddingLeft="7dp"
