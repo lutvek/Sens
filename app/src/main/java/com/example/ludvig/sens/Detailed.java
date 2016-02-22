@@ -1,10 +1,12 @@
 package com.example.ludvig.sens;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -35,6 +37,8 @@ public class Detailed extends AppCompatActivity {
         setupFonts();
 
     }
+
+
 
     private void setupChart() {
         LineChart chart = (LineChart) findViewById(R.id.chart);
@@ -118,12 +122,22 @@ public class Detailed extends AppCompatActivity {
     private void setupFonts() {
         // add fonts for sensors
         TextView tv;
-        Typeface face = Typeface.createFromAsset(getAssets(),
+        Typeface faceLight = Typeface.createFromAsset(getAssets(),
                 "fonts/Raleway-Light.ttf");
         tv = (TextView) findViewById(R.id.TVname);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.TVtemp);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
 
+        Typeface faceRegular = Typeface.createFromAsset(getAssets(),
+                "fonts/Raleway-Regular.ttf");
+
+        tv = (TextView) findViewById(R.id.edit_button);
+        tv.setTypeface(faceRegular);
+    }
+
+    public void editSensor(View view) {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
     }
 }

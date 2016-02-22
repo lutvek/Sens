@@ -47,21 +47,24 @@ public class MainActivity extends AppCompatActivity
     private void addFonts() {
         // add fonts for sensors
         TextView tv = (TextView) findViewById(R.id.sensor_name1);
-        Typeface face = Typeface.createFromAsset(getAssets(),
+        Typeface faceLight = Typeface.createFromAsset(getAssets(),
                 "fonts/Raleway-Light.ttf");
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.sensor_name2);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.sensor_temp1);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.sensor_temp2);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.sensor_small);
         tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-MediumItalic.ttf"));
 
+        Typeface faceRegular = Typeface.createFromAsset(getAssets(),
+                "fonts/Raleway-Regular.ttf");
+
         // add font for button
         Button button = (Button) findViewById(R.id.button);
-        button.setTypeface(face);
+        button.setTypeface(faceRegular);
 
     }
 

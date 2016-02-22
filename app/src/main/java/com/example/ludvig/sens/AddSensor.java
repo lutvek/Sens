@@ -27,25 +27,30 @@ public class AddSensor extends AppCompatActivity {
         // add fonts
         addFonts();
     }
+
     private void addFonts() {
         TextView tv = (TextView) findViewById(R.id.enter_name);
-        Typeface face = Typeface.createFromAsset(getAssets(),
+        Typeface faceLight = Typeface.createFromAsset(getAssets(),
                 "fonts/Raleway-Light.ttf");
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.enter_id);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.sensor_type);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.max_temp_text);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.min_temp_text);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.allow_alarm_text);
-        tv.setTypeface(face);
+        tv.setTypeface(faceLight);
+
+        Typeface faceRegular = Typeface.createFromAsset(getAssets(),
+                "fonts/Raleway-Regular.ttf");
+
         tv = (TextView) findViewById(R.id.accept_button);
-        tv.setTypeface(face);
+        tv.setTypeface(faceRegular);
         tv = (TextView) findViewById(R.id.cancel_button);
-        tv.setTypeface(face);
+        tv.setTypeface(faceRegular);
     }
 
     // clicking cancel
