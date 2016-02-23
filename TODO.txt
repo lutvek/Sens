@@ -1,25 +1,26 @@
 
 *********** UI ***************
 
-FINISHED* Färdigställ UI för Detailed aktiviteten (Henry)
-FINISHED* Fixa färger och typsnitt (Ludvig) 
-	* Fixa dropdown menu icons och rätt text/typsnitt
-	* Ta bort de 3 punkterna i högra hörnet på startsidan
-	* Online visualisering (grön plupp? i högra hörnet)
+FINISHED* FÃ¤rdigstÃ¤ll UI fÃ¶r Detailed aktiviteten (Henry)
+FINISHED* Fixa fÃ¤rger och typsnitt (Ludvig) 
+	* Fixa dropdown menu icons och rÃ¤tt text/typsnitt
+	* Ta bort de 3 punkterna i hÃ¶gra hÃ¶rnet pÃ¥ startsidan
+	* Online visualisering (grÃ¶n plupp? i hÃ¶gra hÃ¶rnet)
 	* Scrollable & flippable
-	* Lägg till grader C mellan max temp och min temp
-	* Lägg till dummies för sidmenyns sidor
+	* LÃ¤gg till grader C mellan max temp och min temp
+	* LÃ¤gg till dummies fÃ¶r sidmenyns sidor
 	* koppla add sensor
-FINISHED* Lägg till push notiser switch eller liknande för varje sensor i main aktiviteten (Ludvig) 
+FINISHED* LÃ¤gg till push notiser switch eller liknande fÃ¶r varje sensor i main aktiviteten (Ludvig) 
 FINICHED* Fixa edit sensor sida
+	* Fixa en riktigt snygg Launcher Icon!
 
 *********** Funktionalitet **************
 	
-	* Färdigställ databas för sensorerna SQLite
-	* Lägg till funktionalitet för att lägga till och ta bort sensorer
-	* Fixa så att presetsen "fridge, stove osv ger förinställda värden i max och min temp
+	* FÃ¤rdigstÃ¤ll databas fÃ¶r sensorerna SQLite
+	* LÃ¤gg till funktionalitet fÃ¶r att lÃ¤gga till och ta bort sensorer
+	* Fixa sÃ¥ att presetsen "fridge, stove osv ger fÃ¶rinstÃ¤llda vÃ¤rden i max och min temp
 
-*********** Övrigt *****************
+*********** Ã–vrigt *****************
 
 	* Fixa sensorernas uppkoppling mot wifi
 	* Fixa sensorernas kommunikation med mobilen 
