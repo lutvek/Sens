@@ -1,4 +1,4 @@
-
+﻿
 *********** UI ***************
 
 FINISHED* Färdigställ UI för Detailed aktiviteten (Henry)
@@ -16,7 +16,7 @@ FINICHED* Fixa edit sensor sida
 
 *********** Funktionalitet **************
 	
-	* Färdigställ databas för sensorerna SQLite
+	* Färdigställ databas för sensorerna SQLite (Ludvig)
 	* Lägg till funktionalitet för att lägga till och ta bort sensorer
 	* Fixa så att presetsen "fridge, stove osv ger förinställda värden i max och min temp
 
