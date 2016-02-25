@@ -1,10 +1,12 @@
 package com.example.ludvig.sens;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity
         // display sensors in content_main.xml
 
         displaySensors(db);
+        SensorDBItem s = new SensorDBItem("henty", 10, 20, true);
+        long id = addSensorToDB(s, db);
 
         // add fonts to page
         /*
@@ -226,12 +230,19 @@ public class MainActivity extends AppCompatActivity
 
             TextView sensor_name = (TextView) convertView.findViewById(R.id.sensor_name);
             TextView sensor_temp = (TextView) convertView.findViewById(R.id.sensor_temp);
-            Switch notifications = (Switch) findViewById(R.id.notifications);
+            Switch notifications = (Switch) convertView.findViewById(R.id.notifications);
 
-            // TODO set switch state to notification value in db
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                notifications.setChecked(sensor.pushNotifications);
+            }
+            // set text
             sensor_name.setText(sensor.name);
             sensor_temp.setText(String.valueOf(sensor.temperature));
+            // set fonts
+            Typeface faceLight = Typeface.createFromAsset(getAssets(),
+                    "fonts/Raleway-Light.ttf");
+            sensor_name.setTypeface(faceLight);
+            sensor_temp.setTypeface(faceLight);
 
             return convertView;
         }
