@@ -64,10 +64,7 @@ public class MainActivity extends AppCompatActivity
         long id = addSensorToDB(s, db);
 
         // add fonts to page
-        /*
         addFonts();
-        */
-
     }
 
     /***************************** LAYOUT OPTIONS ************************/
@@ -75,17 +72,10 @@ public class MainActivity extends AppCompatActivity
     // add fonts to elements in frame
     private void addFonts() {
         // add fonts for sensors
-        TextView tv = (TextView) findViewById(R.id.sensor_name1);
         Typeface faceLight = Typeface.createFromAsset(getAssets(),
                 "fonts/Raleway-Light.ttf");
-        tv.setTypeface(faceLight);
-        tv = (TextView) findViewById(R.id.sensor_name2);
-        tv.setTypeface(faceLight);
-        tv = (TextView) findViewById(R.id.sensor_temp1);
-        tv.setTypeface(faceLight);
-        tv = (TextView) findViewById(R.id.sensor_temp2);
-        tv.setTypeface(faceLight);
-        tv = (TextView) findViewById(R.id.sensor_small);
+
+        TextView tv = (TextView) findViewById(R.id.sensor_small);
         tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-MediumItalic.ttf"));
 
         Typeface faceRegular = Typeface.createFromAsset(getAssets(),
