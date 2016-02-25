@@ -35,6 +35,8 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +57,20 @@ public class MainActivity extends AppCompatActivity
 
         // instantiate database helper
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
 
         // display sensors in content_main.xml
 
+        clearDB(db);
         displaySensors(db);
-        SensorDBItem s = new SensorDBItem("henty", 10, 20, true);
-        long id = addSensorToDB(s, db);
 
         // add fonts to page
         addFonts();
+    }
+
+    public void onResume() {
+        displaySensors(db);
+        super.onResume();
     }
 
     /***************************** LAYOUT OPTIONS ************************/
@@ -103,12 +109,12 @@ public class MainActivity extends AppCompatActivity
     /**************************** Database Options *****************************/
 
     // add sensor to db
-    private long addSensorToDB(SensorDBItem sensor, SQLiteDatabase db) {
+    public static long addSensorToDB(SensorDBItem sensor, SQLiteDatabase db) {
         return cupboard().withDatabase(db).put(sensor);
     }
 
     // delete sensor from db
-    private void deleteSensorFromDB(SensorDBItem sensor, SQLiteDatabase db) {
+    public static void deleteSensorFromDB(SensorDBItem sensor, SQLiteDatabase db) {
         cupboard().withDatabase(db).delete(sensor);
     }
 

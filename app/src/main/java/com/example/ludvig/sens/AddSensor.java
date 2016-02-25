@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class AddSensor extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class AddSensor extends AppCompatActivity {
         tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.min_temp_text);
         tv.setTypeface(faceLight);
-        tv = (TextView) findViewById(R.id.allow_alarm_text);
+        tv = (TextView) findViewById(R.id.allow_alarm);
         tv.setTypeface(faceLight);
 
         Typeface faceRegular = Typeface.createFromAsset(getAssets(),
@@ -60,6 +61,20 @@ public class AddSensor extends AppCompatActivity {
     // clicking accept: adding new sensor to database and updating
     public void addNewSensor(View view) {
         // TODO add new sensor to SQLite database and update
+        TextView sensor_name = (TextView) findViewById(R.id.newSensorName);
+        TextView sensor_id = (TextView) findViewById(R.id.newSensorID);
+        TextView sensor_max = (TextView) findViewById(R.id.max_temp);
+        TextView sensor_min = (TextView) findViewById(R.id.min_temp);
+        Switch sensor_notifications = (Switch) findViewById(R.id.allow_alarm);
+
+        String name = sensor_name.getText().toString();
+        double max = Double.valueOf(sensor_max.getText().toString());
+        double min = Double.valueOf(sensor_min.getText().toString());
+        boolean notifications = sensor_notifications.isChecked();
+
+        SensorDBItem newSensor = new SensorDBItem(name, max, min, notifications);
+        MainActivity.addSensorToDB(newSensor, MainActivity.db);
+
         finish();
     }
 }
