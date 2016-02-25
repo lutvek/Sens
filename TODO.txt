@@ -9,9 +9,9 @@ FINISHED* Fixa färger och typsnitt (Ludvig)
 	* Scrollable & flippable
 	* Lägg till grader C mellan max temp och min temp
 	* Lägg till dummies för sidmenyns sidor
-	* koppla add sensor
-FINISHED* Lägg till push notiser switch eller liknande för varje sensor i main aktiviteten (Ludvig) 
-FINICHED* Fixa edit sensor sida
+	* koppla add sensorDBItem
+FINISHED* Lägg till push notiser switch eller liknande för varje sensorDBItem i main aktiviteten (Ludvig)
+FINICHED* Fixa edit sensorDBItem sida
 	* Fixa en riktigt snygg Launcher Icon!
 
 *********** Funktionalitet **************

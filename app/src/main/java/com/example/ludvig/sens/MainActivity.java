@@ -1,13 +1,12 @@
 package com.example.ludvig.sens;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,8 +16,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nl.qbusict.cupboard.QueryResultIterable;
+
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,10 +40,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // instantiate database helper
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         /* adding menu */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,13 +50,25 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // get sensors from db
+
+        // instantiate database helper
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // display sensors in content_main.xml
+
+        displaySensors(db);
 
         // add fonts to page
+        /*
         addFonts();
+        */
 
     }
 
+    /***************************** LAYOUT OPTIONS ************************/
+
+    // add fonts to elements in frame
     private void addFonts() {
         // add fonts for sensors
         TextView tv = (TextView) findViewById(R.id.sensor_name1);
@@ -75,6 +93,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**************************** Switch Activities *****************************/
     // go to add new sensor activity
     public void addSensor(View view) {
         Intent intent = new Intent(this, AddSensor.class);
@@ -87,7 +106,63 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    /**************************** Database Options *****************************/
 
+    // add sensor to db
+    private long addSensorToDB(SensorDBItem sensor, SQLiteDatabase db) {
+        return cupboard().withDatabase(db).put(sensor);
+    }
+
+    // delete sensor from db
+    private void deleteSensorFromDB(SensorDBItem sensor, SQLiteDatabase db) {
+        cupboard().withDatabase(db).delete(sensor);
+    }
+
+    // delete all sensors from db
+    private void clearDB(SQLiteDatabase db) {
+        Cursor sensors = cupboard().withDatabase(db).query(SensorDBItem.class).getCursor();
+        QueryResultIterable<SensorDBItem> itr = null;
+        try {
+            // Iterate Sensors
+            itr = cupboard().withCursor(sensors).iterate(SensorDBItem.class);
+            for (SensorDBItem sensor : itr) {
+                deleteSensorFromDB(sensor, db); // delete sensor
+            }
+        } finally {
+            // close the cursor
+            itr.close();
+        }
+    }
+
+    // Display sensors in db to content_main.xml
+    private void displaySensors (SQLiteDatabase db) {
+
+        // Find the listview in the layout
+        final ListView listView = (ListView) findViewById(R.id.listview);
+
+        // Create and populate a list of Sensors
+        ArrayList<SensorDBItem> list = new ArrayList<>();
+
+        // output sensors in database to main_content
+        Cursor sensors = cupboard().withDatabase(db).query(SensorDBItem.class).getCursor();
+        QueryResultIterable<SensorDBItem> itr = null;
+        try {
+            // Iterate Sensors
+            itr = cupboard().withCursor(sensors).iterate(SensorDBItem.class);
+            for (SensorDBItem sensor : itr) {
+                list.add(sensor);
+            }
+        } finally {
+            // close the cursor
+            itr.close();
+        }
+
+        // Create an adaptor from the list using our SensorAdapter
+        SensorAdapter adapter = new SensorAdapter(this, list);
+
+        // Attach the adaptor to the listView
+        listView.setAdapter(adapter);
+    }
 
     /**************************** MENU OPTIONS *********************************/
     @Override
@@ -132,6 +207,34 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    /**************************** CLASSES *****************************/
+    // sensor adapter for displaying sensors in main_content
+    private class SensorAdapter extends ArrayAdapter<SensorDBItem> {
 
-    /************************ END MENU OPTIONS *******************************/
+        public SensorAdapter(Context context, List<SensorDBItem> objects) {
+            super(context, 0, objects);
+        }
+
+        // Bad implementation
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            SensorDBItem sensor = getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.sensor_row, parent, false);
+            }
+
+            TextView sensor_name = (TextView) convertView.findViewById(R.id.sensor_name);
+            TextView sensor_temp = (TextView) convertView.findViewById(R.id.sensor_temp);
+            Switch notifications = (Switch) findViewById(R.id.notifications);
+
+            // TODO set switch state to notification value in db
+
+            sensor_name.setText(sensor.name);
+            sensor_temp.setText(String.valueOf(sensor.temperature));
+
+            return convertView;
+        }
+    }
+
 }

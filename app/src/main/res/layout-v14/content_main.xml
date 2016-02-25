@@ -33,95 +33,11 @@
             android:layout_marginEnd="40dp" />
     </RelativeLayout>
 
-    <RelativeLayout
+
+    <ListView android:id="@+id/listview"
         android:layout_below="@+id/head_of_detailed"
-        android:onClick="detailedView"
-        android:id="@+id/sensor1"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:background="@drawable/border">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Spis"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/sensor_name1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            android:textSize="30dp"
-            android:fontFamily="Raleway-black"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20 °C"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/sensor_temp1"
-            android:textSize="30dp"
-            android:layout_alignTop="@+id/sensor_name1"
-            android:layout_centerHorizontal="true" />
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/switch2"
-            android:layout_marginRight="30dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:checked="false" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:onClick="detailedView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:background="@drawable/border"
-        android:layout_below="@+id/sensor1"
-        android:layout_alignLeft="@+id/sensor1"
-        android:layout_alignStart="@+id/sensor1"
-        android:id="@+id/sensor2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Frys"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/sensor_name2"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            android:textSize="30dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-8 °C"
-            android:id="@+id/sensor_temp2"
-            android:textColor="@color/colorPrimary"
-            android:textSize="30dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:id="@+id/switch3"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
+        android:layout_height="match_parent"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
