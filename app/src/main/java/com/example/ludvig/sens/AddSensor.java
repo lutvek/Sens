@@ -58,9 +58,10 @@ public class AddSensor extends AppCompatActivity {
     public void back(View view) {
         finish();
     }
-    // clicking accept: adding new sensor to database and updating
+
+    // clicking accept: adding new sensor to database
     public void addNewSensor(View view) {
-        // TODO add new sensor to SQLite database and update
+        // TODO error handling
         TextView sensor_name = (TextView) findViewById(R.id.newSensorName);
         TextView sensor_id = (TextView) findViewById(R.id.newSensorID);
         TextView sensor_max = (TextView) findViewById(R.id.max_temp);

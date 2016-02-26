@@ -35,7 +35,7 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static SQLiteDatabase db;
+    public static SQLiteDatabase db; //database accessible from all activities
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity
 
         // display sensors in content_main.xml
 
-        clearDB(db);
         displaySensors(db);
 
         // add fonts to page
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /**************************** Switch Activities *****************************/
+    /**************************** Clickable functions *****************************/
     // go to add new sensor activity
     public void addSensor(View view) {
         Intent intent = new Intent(this, AddSensor.class);
@@ -104,6 +103,10 @@ public class MainActivity extends AppCompatActivity
     public void detailedView(View view) {
         Intent intent = new Intent(this, Detailed.class);
         startActivity(intent);
+    }
+
+    public void notificationSwitch(View view) {
+
     }
 
     /**************************** Database Options *****************************/
