@@ -69,11 +69,12 @@ public class AddSensor extends AppCompatActivity {
         Switch sensor_notifications = (Switch) findViewById(R.id.allow_alarm);
 
         String name = sensor_name.getText().toString();
+        String sensId = sensor_id.getText().toString();
         double max = Double.valueOf(sensor_max.getText().toString());
         double min = Double.valueOf(sensor_min.getText().toString());
         boolean notifications = sensor_notifications.isChecked();
 
-        SensorDBItem newSensor = new SensorDBItem(name, max, min, notifications);
+        SensorDBItem newSensor = new SensorDBItem(name, sensId, max, min, notifications);
         MainActivity.addSensorToDB(newSensor, MainActivity.db);
 
         finish();
