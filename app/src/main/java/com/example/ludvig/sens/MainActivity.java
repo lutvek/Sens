@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
         // add fonts to page
         addFonts();
-        
+
         registerUpdateAlarm();
     }
 
