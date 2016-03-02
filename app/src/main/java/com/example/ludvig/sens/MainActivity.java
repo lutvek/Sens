@@ -1,6 +1,8 @@
 package com.example.ludvig.sens;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -72,7 +74,8 @@ public class MainActivity extends AppCompatActivity
 
         // add fonts to page
         addFonts();
-
+        
+        registerUpdateAlarm();
     }
 
     public void onResume() {
@@ -220,6 +223,17 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void registerUpdateAlarm() {
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, AlarmReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long firstMillis = System.currentTimeMillis();
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, 60000, pendingIntent);
+    }
+
     /**************************** CLASSES *****************************/
     // sensor adapter for displaying sensors in main_content
     private class SensorAdapter extends ArrayAdapter<SensorDBItem> {
