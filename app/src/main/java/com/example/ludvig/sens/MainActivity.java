@@ -1,6 +1,5 @@
 package com.example.ludvig.sens;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import nl.qbusict.cupboard.QueryResultIterable;
 
@@ -37,7 +39,11 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public final static String EXTRA_ID = "com.example.ludvig.sens.EXTRA_ID";
+
     public static SQLiteDatabase db; //database accessible from all activities
+    // Tag used for debug messages
+    private static final String TAG = "Sens";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        ListView listView = (ListView) findViewById(R.id.listview);
+
+        listView.setOnItemClickListener(new SensorListClickListener());
 
         // instantiate database helper
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -103,12 +112,6 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    // go to Detailed
-    public void detailedView(View view) {
-        Intent intent = new Intent(this, Detailed.class);
-        startActivity(intent);
-    }
-
     public void notificationSwitch(View view) {
 
     }
@@ -123,6 +126,10 @@ public class MainActivity extends AppCompatActivity
     // delete sensor from db
     public static void deleteSensorFromDB(SensorDBItem sensor, SQLiteDatabase db) {
         cupboard().withDatabase(db).delete(sensor);
+    }
+
+    public static SensorDBItem getSensorByID(long id, SQLiteDatabase db) {
+        return cupboard().withDatabase(db).get(SensorDBItem.class, id);
     }
 
     // delete all sensors from db
@@ -226,6 +233,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**************************** CLASSES *****************************/
+
+    private class SensorListClickListener implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            SensorDBItem sensor = (SensorDBItem) parent.getItemAtPosition(position);
+            Intent intent = new Intent(getApplicationContext(), DetailedActivity.class);
+
+            intent.putExtra(EXTRA_ID, sensor._id);
+            startActivity(intent);
+        }
+    }
+
     // sensor adapter for displaying sensors in main_content
     private class SensorAdapter extends ArrayAdapter<SensorDBItem> {
 

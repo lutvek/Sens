@@ -22,22 +22,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class Detailed extends AppCompatActivity {
-
+public class DetailedActivity extends AppCompatActivity {
     private static final String TAG = "Sens";
-    private static final int SAMPLE_SIZE = 20;
+    private static final int DUMMY_SAMPLE_SIZE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
+        Intent intent = getIntent();
+
+        // Should handle the -1 case...
+        long sensor_id = intent.getLongExtra(MainActivity.EXTRA_ID, -1);
+
+        SensorDBItem sensor = MainActivity.getSensorByID(sensor_id, MainActivity.db);
+
+        setupViews(sensor);
+
         setupChart();
-
         setupFonts();
-
     }
 
+    private void setupViews(SensorDBItem sensor) {
+        TextView textView = (TextView) findViewById(R.id.TVname);
+        textView.setText(sensor.name);
+    }
 
 
     private void setupChart() {
@@ -47,14 +57,14 @@ public class Detailed extends AppCompatActivity {
         ArrayList<String> datesArrayList = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -SAMPLE_SIZE);
+        calendar.add(Calendar.DATE, -DUMMY_SAMPLE_SIZE);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-LL");
         Random random = new Random();
 
         int temp;
         String dateString;
 
-        for (int i = 0; i < SAMPLE_SIZE; i++) {
+        for (int i = 0; i < DUMMY_SAMPLE_SIZE; i++) {
             temp = random.nextInt(3) + 20;
             calendar.add(Calendar.DATE, 1);
             dateString = simpleDateFormat.format(calendar.getTime());

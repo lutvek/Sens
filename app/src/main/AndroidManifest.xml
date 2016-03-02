@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Detailed"
+            android:name=".DetailedActivity"
             android:label="Spis"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
@@ -32,7 +32,7 @@
         <activity
             android:name=".EditActivity"
             android:label="Edit"
-            android:parentActivityName=".Detailed"
+            android:parentActivityName=".DetailedActivity"
             />
         <receiver
             android:name=".AlarmReceiver"

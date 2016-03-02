@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ludvig.sens.Detailed"
+    tools:context=".DetailedActivity"
     android:background="@color/background">
 
     <RelativeLayout
@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Spis"
             android:id="@+id/TVname"
             android:textColor="@color/black"
             android:layout_centerHorizontal="true"
