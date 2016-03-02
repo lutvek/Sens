@@ -32,6 +32,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,8 +51,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -125,12 +124,14 @@ public class MainActivity extends AppCompatActivity
 
     /**************************** Database Options *****************************/
 
-    // add sensor to db
     public static long addSensorToDB(SensorDBItem sensor, SQLiteDatabase db) {
         return cupboard().withDatabase(db).put(sensor);
     }
 
-    // delete sensor from db
+    public static void updateSensorTemp(SensorDBItem sensor, SQLiteDatabase db) {
+        cupboard().withDatabase(db).put(sensor);
+    }
+
     public static void deleteSensorFromDB(SensorDBItem sensor, SQLiteDatabase db) {
         cupboard().withDatabase(db).delete(sensor);
     }
@@ -139,7 +140,10 @@ public class MainActivity extends AppCompatActivity
         return cupboard().withDatabase(db).get(SensorDBItem.class, id);
     }
 
-    // delete all sensors from db
+    public static Iterator<SensorDBItem> getSensors(SQLiteDatabase db) {
+        return cupboard().withDatabase(db).query(SensorDBItem.class).query().iterator();
+    }
+
     private void clearDB(SQLiteDatabase db) {
         Cursor sensors = cupboard().withDatabase(db).query(SensorDBItem.class).getCursor();
         QueryResultIterable<SensorDBItem> itr = null;
@@ -151,7 +155,9 @@ public class MainActivity extends AppCompatActivity
             }
         } finally {
             // close the cursor
-            itr.close();
+            if (itr != null) {
+                itr.close();
+            }
         }
     }
 

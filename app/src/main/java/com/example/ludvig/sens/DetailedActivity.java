@@ -39,14 +39,13 @@ public class DetailedActivity extends AppCompatActivity {
         SensorDBItem sensor = MainActivity.getSensorByID(sensor_id, MainActivity.db);
 
         setupViews(sensor);
-
         setupChart();
         setupFonts();
     }
 
     private void setupViews(SensorDBItem sensor) {
-        TextView textView = (TextView) findViewById(R.id.TVname);
-        textView.setText(sensor.name);
+        ((TextView) findViewById(R.id.TVname)).setText(sensor.name);
+        ((TextView) findViewById(R.id.TVtemp)).setText("°" + String.valueOf(sensor.temperature));
     }
 
 

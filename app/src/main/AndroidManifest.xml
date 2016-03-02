@@ -35,7 +35,6 @@
         <activity
             android:name=".EditActivity"
             android:label="Edit"
-            android:parentActivityName=".DetailedActivity"
             />
         <receiver
             android:name=".AlarmReceiver"
