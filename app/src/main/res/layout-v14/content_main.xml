@@ -26,6 +26,11 @@
             android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true">
+            <ImageView
+                android:src="@drawable/temperature_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"/>
             <TextView
                 android:text="Online"
                 android:id="@+id/online_small"
