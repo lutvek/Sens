@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         long firstMillis = System.currentTimeMillis();
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, 60000, pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, 300000, pendingIntent); //3000000 = 5 minutes in milliseconds
     }
 
     /**************************** CLASSES *****************************/
