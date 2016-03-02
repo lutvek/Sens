@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:id="@+id/sensor_temp"
+            android:maxWidth="100dp"
             android:textSize="25dp"
             />
 

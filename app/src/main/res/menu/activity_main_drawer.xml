@@ -13,15 +13,15 @@
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="About Us" />
+            android:title="Help" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Help" />
+            android:title="Contact" />
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
-            android:title="Share" />
+            android:title="About Us" />
         <item
             android:id="@+id/nav_send"
             android:icon="@drawable/ic_menu_send"
