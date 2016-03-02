@@ -5,6 +5,5 @@
         android:drawable="@drawable/sens_offwhite"
         android:top="25dp"
         android:bottom="25dp"
-        android:right="20dp"
         />
 </layer-list>
