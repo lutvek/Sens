@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity
 
         TextView tv = (TextView) findViewById(R.id.sensor_small);
         tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-MediumItalic.ttf"));
-        tv = (TextView) findViewById(R.id.online_small);
-        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-MediumItalic.ttf"));
 
         Typeface faceRegular = Typeface.createFromAsset(getAssets(),
                 "fonts/Raleway-Regular.ttf");
