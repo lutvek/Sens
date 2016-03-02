@@ -34,6 +34,12 @@
             android:label="Edit"
             android:parentActivityName=".Detailed"
             />
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote" />
+        <service
+            android:name=".UpdateSensorService"
+            android:exported="false" />
 
     </application>
 
