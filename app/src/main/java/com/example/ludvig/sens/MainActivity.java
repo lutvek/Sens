@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -39,7 +41,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +72,7 @@ public class MainActivity extends AppCompatActivity
 
         // add fonts to page
         addFonts();
+
     }
 
     public void onResume() {
@@ -81,6 +89,8 @@ public class MainActivity extends AppCompatActivity
                 "fonts/Raleway-Light.ttf");
 
         TextView tv = (TextView) findViewById(R.id.sensor_small);
+        tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-MediumItalic.ttf"));
+        tv = (TextView) findViewById(R.id.online_small);
         tv.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Raleway-MediumItalic.ttf"));
 
         Typeface faceRegular = Typeface.createFromAsset(getAssets(),
@@ -180,14 +190,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     // TODO Removing this removes the three dots menu, but also makes the logo not centered.
+    /*
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    */
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
