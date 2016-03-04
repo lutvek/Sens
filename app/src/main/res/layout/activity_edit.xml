@@ -74,32 +74,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Max Temp"
-        android:id="@+id/max_temp_text"
-        android:layout_below="@id/sensor_spinner"
-        android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="16dp"/>
-
-    <EditText
-        android:layout_width="40dp"
-        android:layout_marginLeft="4dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sensor_spinner"
-        android:layout_toRightOf="@id/max_temp_text"
-        android:inputType="numberDecimal"
-        android:id="@+id/max_temp"
-        android:layout_marginTop="6dp"
-        android:gravity="right"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Min Temp"
         android:id="@+id/min_temp_text"
         android:layout_below="@id/sensor_spinner"
-        android:layout_toRightOf="@id/max_temp"
-        android:layout_marginLeft="20dp"
         android:textSize="20dp"
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="16dp"/>
@@ -112,6 +89,29 @@
         android:layout_toRightOf="@id/min_temp_text"
         android:inputType="numberDecimal"
         android:id="@+id/min_temp"
+        android:layout_marginTop="6dp"
+        android:gravity="right"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max Temp"
+        android:id="@+id/max_temp_text"
+        android:layout_below="@id/sensor_spinner"
+        android:layout_toRightOf="@id/min_temp"
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_marginLeft="4dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sensor_spinner"
+        android:layout_toRightOf="@id/max_temp_text"
+        android:inputType="numberDecimal"
+        android:id="@+id/max_temp"
         android:layout_marginTop="6dp"
         android:gravity="right"/>
 
