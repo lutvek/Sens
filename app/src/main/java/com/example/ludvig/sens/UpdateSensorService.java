@@ -2,6 +2,7 @@ package com.example.ludvig.sens;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -17,10 +18,15 @@ public class UpdateSensorService extends IntentService {
         super("UpdateSensorService");
     }
 
+    public static SQLiteDatabase db;
+
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Iterator<SensorDBItem> sensorsIterator = MainActivity.getSensors(MainActivity.db);
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        db = databaseHelper.getWritableDatabase();
+
+        Iterator<SensorDBItem> sensorsIterator = MainActivity.getSensors(db);
         SensorDBItem sensor;
         InputStream is;
 
@@ -48,7 +54,7 @@ public class UpdateSensorService extends IntentService {
 
                 sensor.temperature = temp;
 
-                MainActivity.updateSensorTemp(sensor, MainActivity.db);
+                MainActivity.updateSensorTemp(sensor, db);
 
                 if(is != null) is.close();
             } catch (Exception ignored) {}

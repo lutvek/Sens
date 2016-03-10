@@ -8,6 +8,7 @@ import android.widget.Spinner;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddSensor extends AppCompatActivity {
 
@@ -76,6 +77,9 @@ public class AddSensor extends AppCompatActivity {
 
         SensorDBItem newSensor = new SensorDBItem(name, sensId, max, min, notifications);
         MainActivity.addSensorToDB(newSensor, MainActivity.db);
+
+        CharSequence text = "Note: Will use development sensor id to fetch data";
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
 
         finish();
     }

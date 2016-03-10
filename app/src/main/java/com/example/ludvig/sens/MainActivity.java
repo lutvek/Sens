@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     public final static String EXTRA_ID = "com.example.ludvig.sens.EXTRA_ID";
 
-    public static SQLiteDatabase db; //database accessible from all activities
+    public static SQLiteDatabase db;
     // Tag used for debug messages
     private static final String TAG = "Sens";
 
@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // we have our own logo, so we hide the title
+        getSupportActionBar().setTitle(null);
 
         /* adding menu */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -282,7 +285,9 @@ public class MainActivity extends AppCompatActivity
             }
             // set text
             sensor_name.setText(sensor.name);
-            sensor_temp.setText(String.valueOf(sensor.temperature));
+            String formated_temp = String.format("%.1f", sensor.temperature);
+
+            sensor_temp.setText(formated_temp);
             // set fonts
             Typeface faceLight = Typeface.createFromAsset(getAssets(),
                     "fonts/Raleway-Light.ttf");

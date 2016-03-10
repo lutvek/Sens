@@ -26,6 +26,8 @@ public class DetailedActivity extends AppCompatActivity {
     private static final String TAG = "Sens";
     private static final int DUMMY_SAMPLE_SIZE = 20;
 
+    private long cur_sensor_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +36,11 @@ public class DetailedActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         // Should handle the -1 case...
-        long sensor_id = intent.getLongExtra(MainActivity.EXTRA_ID, -1);
+        cur_sensor_id = intent.getLongExtra(MainActivity.EXTRA_ID, -1);
 
-        SensorDBItem sensor = MainActivity.getSensorByID(sensor_id, MainActivity.db);
+        SensorDBItem sensor = MainActivity.getSensorByID(cur_sensor_id, MainActivity.db);
+
+        getSupportActionBar().setTitle(sensor.name);
 
         setupViews(sensor);
         setupChart();
@@ -45,7 +49,8 @@ public class DetailedActivity extends AppCompatActivity {
 
     private void setupViews(SensorDBItem sensor) {
         ((TextView) findViewById(R.id.TVname)).setText(sensor.name);
-        ((TextView) findViewById(R.id.TVtemp)).setText("°" + String.valueOf(sensor.temperature));
+        String formated_temp = String.format("%.1f", sensor.temperature);
+        ((TextView) findViewById(R.id.TVtemp)).setText("°" + formated_temp);
     }
 
 
@@ -147,6 +152,7 @@ public class DetailedActivity extends AppCompatActivity {
 
     public void editSensor(View view) {
         Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra(MainActivity.EXTRA_ID, cur_sensor_id);
         startActivity(intent);
     }
 }

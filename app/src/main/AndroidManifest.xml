@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label=""
+            android:label="Sens"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,7 +31,6 @@
             android:label="Add Sensor"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
-        <!-- The parent activity is only temporary as this behaviour will not always be the case -->
         <activity
             android:name=".EditActivity"
             android:label="Edit"

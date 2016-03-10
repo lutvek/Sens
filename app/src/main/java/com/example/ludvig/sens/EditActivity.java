@@ -1,42 +1,58 @@
 package com.example.ludvig.sens;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditActivity extends AppCompatActivity {
+
+    public static SQLiteDatabase db;
+
+    private SensorDBItem cur_sensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        // Create a database instance
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        db = databaseHelper.getWritableDatabase();
+
+        Intent intent = getIntent();
+
+        // Should handle the -1 case...
+        long sensor_id = intent.getLongExtra(MainActivity.EXTRA_ID, -1);
+
+        cur_sensor = MainActivity.getSensorByID(sensor_id, MainActivity.db);
+
+        // Setup the spinner
         Spinner spinner = (Spinner) findViewById(R.id.sensor_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sensors_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        // FIXME Temp values of fields
-        EditText enterName= (EditText) findViewById(R.id.newSensorName);
-        enterName.setText("Spis");
+        EditText enterName = (EditText) findViewById(R.id.newSensorName);
+        enterName.setText(cur_sensor.name);
 
-        EditText enterID= (EditText) findViewById(R.id.newSensorID);
-        enterID.setText("2d0028000e47343432313031");
+        EditText enterID = (EditText) findViewById(R.id.newSensorID);
+        enterID.setText(cur_sensor.sensId);
 
         EditText maxTempText = (EditText) findViewById(R.id.max_temp);
-        maxTempText.setText("23");
+        maxTempText.setText(String.valueOf(cur_sensor.maxTemp));
 
         EditText minTempText = (EditText) findViewById(R.id.min_temp);
-        minTempText.setText("19");
+        minTempText.setText(String.valueOf(cur_sensor.minTemp));
 
         addFonts();
     }
@@ -69,10 +85,21 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void addNewSensor(View view) {
+        CharSequence text = "Note: Will use development sensor id to fetch data";
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
         finish();
     }
 
     public void back(View view) {
         finish();
+    }
+
+    public void deleteSensor(View view) {
+        MainActivity.deleteSensorFromDB(cur_sensor, db);
+        CharSequence text = cur_sensor.name + " deleted!";
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
