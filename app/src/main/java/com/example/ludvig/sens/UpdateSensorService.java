@@ -8,6 +8,7 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.net.SocketException;
 import java.net.URL;
 import java.util.Iterator;
 
@@ -30,36 +31,46 @@ public class UpdateSensorService extends IntentService {
         Iterator<SensorDBItem> sensorsIterator = MainActivity.getSensors(db);
         SensorDBItem sensor;
         InputStream is;
+        boolean connected;
 
         while (sensorsIterator.hasNext()) {
             sensor = sensorsIterator.next();
 
-            try {
-                URL url = new URL("https://api.particle.io/v1/devices/2d0028000e47343432313031/temp?access_token=172b708ddc95af637876a01a36a6fc37019f8387");
-                HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-                connection.setReadTimeout(10000); /* MILLI */
-                connection.setConnectTimeout(15000); /* MILLI */
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true); /* Allows input */
-                connection.connect();
-                int response = connection.getResponseCode();
-                Log.i("HTTP GET", "The response is: " + response + " for sensor " + sensor.name);
-                is = connection.getInputStream();
+            connected = sensorIsConnected("https://api.particle.io/v1/devices/2d0028000e47343432313031/?access_token=172b708ddc95af637876a01a36a6fc37019f8387");
 
-                String contentAsString = convertStreamToString(is);
-                JSONObject jsonObject = new JSONObject(contentAsString);
-                double temp = Double.valueOf(jsonObject.getString("result"));
+            if (connected) {
+                try {
+                    URL url = new URL("https://api.particle.io/v1/devices/2d0028000e47343432313031/temp?access_token=172b708ddc95af637876a01a36a6fc37019f8387");
+                    HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                    connection.setReadTimeout(10000); /* MILLI */
+                    connection.setConnectTimeout(15000); /* MILLI */
+                    connection.setRequestMethod("GET");
+                    connection.setDoInput(true); /* Allows input */
+                    connection.connect();
+                    int response = connection.getResponseCode();
+                    Log.i("HTTP GET", "The response is: " + response + " for sensor " + sensor.name);
+                    is = connection.getInputStream();
 
-                Log.i("HTTP GET", String.valueOf(temp));
-                connection.disconnect();
+                    String contentAsString = convertStreamToString(is);
+                    JSONObject jsonObject = new JSONObject(contentAsString);
+                    double temp = Double.valueOf(jsonObject.getString("result"));
 
-                sensor.temperature = temp;
-                sensor.connectionStatus = SensorDBItem.CONNECTED;
+                    Log.i("HTTP GET", String.valueOf(temp));
+                    connection.disconnect();
 
-                MainActivity.updateSensor(sensor, db);
+                    sensor.temperature = temp;
+                    sensor.connectionStatus = SensorDBItem.CONNECTED;
 
-                if(is != null) is.close();
-            } catch (Exception ignored) {}
+                    if (is != null) is.close();
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                    sensor.connectionStatus = SensorDBItem.DISCONNECTED;
+                } catch (Exception ignored) {}
+            } else {
+                sensor.connectionStatus = SensorDBItem.DISCONNECTED;
+            }
+
+            MainActivity.updateSensor(sensor, db);
         }
 
         Intent broadcast_intent = new Intent(SENSOR_UPDATE);
@@ -67,6 +78,30 @@ public class UpdateSensorService extends IntentService {
 
         db.close();
     }
+
+    private boolean sensorIsConnected(String url_input) {
+        boolean connectionStatus = false;
+
+        try {
+            URL url = new URL(url_input);
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream is = connection.getInputStream();
+
+            String contentAsString = convertStreamToString(is);
+            JSONObject jsonObject = new JSONObject(contentAsString);
+            connectionStatus = jsonObject.getBoolean("connected");
+
+            connection.disconnect();
+        } catch (Exception ignored) {}
+
+        return connectionStatus;
+    }
+
 
     // Reads an InputStream and converts it to a String.
     String convertStreamToString(java.io.InputStream is) {

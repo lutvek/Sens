@@ -1,16 +1,9 @@
 package com.example.ludvig.sens;
 
-/**
- * Object for each entry in database
- * se https://guides.codepath.com/android/Easier-SQL-with-Cupboard
- * for description of structure
- *
- * Created by Ludvig on 24/02/2016.
- */
 public class SensorDBItem {
 
     public static final int CONNECTED = 1;
-    public static final int DISCONNNECTED = -1;
+    public static final int DISCONNECTED = -1;
     public static final int UNINITIALIZED = 0;
 
     public Long _id; // for cupboard

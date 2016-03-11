@@ -1,5 +1,6 @@
 package com.example.ludvig.sens;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -94,7 +95,6 @@ public class AddSensor extends AppCompatActivity {
 
     // clicking accept: adding new sensor to database
     public void addNewSensor(View view) {
-        // TODO error handling
         TextView sensor_name = (TextView) findViewById(R.id.newSensorName);
         TextView sensor_id = (TextView) findViewById(R.id.newSensorID);
         TextView sensor_max = (TextView) findViewById(R.id.max_temp);
@@ -112,6 +112,9 @@ public class AddSensor extends AppCompatActivity {
 
         CharSequence text = "Note: Will use development sensor id to fetch data";
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(getApplicationContext(), UpdateSensorService.class);
+        startService(intent);
 
         finish();
     }

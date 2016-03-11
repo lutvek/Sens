@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static {
         // register our models
         cupboard().register(SensorDBItem.class);
+        cupboard().register(TemperatureDBItem.class);
     }
 
     @Override

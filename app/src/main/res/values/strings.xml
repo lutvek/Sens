@@ -16,7 +16,7 @@
         <item>Indoors</item>
     </string-array>
 
-    <string name="connection_status_disconnected">Not Connected</string>
+    <string name="connection_status_disconnected">Disconnected</string>
     <string name="connection_status_uninitialized">Connecting...</string>
 
 </resources>

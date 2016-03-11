@@ -9,11 +9,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,19 +17,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import nl.qbusict.cupboard.QueryResultIterable;
 
@@ -43,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public final static String EXTRA_ID = "com.example.ludvig.sens.EXTRA_ID";
-    public final static int UPDATE_FREQUENCY = 60000; // 1 minute
+    public final static int UPDATE_FREQUENCY = 120000; // 1 minute
 
     public static SQLiteDatabase db;
     private static final String TAG = "Sens";

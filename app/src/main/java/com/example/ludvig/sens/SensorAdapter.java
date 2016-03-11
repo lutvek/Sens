@@ -62,7 +62,7 @@ public class SensorAdapter extends ArrayAdapter<SensorDBItem> {
                 viewHolder.sensorTemp.setText(R.string.connection_status_uninitialized);
                 viewHolder.connectionStatus.setImageResource(R.drawable.circle_yellow);
                 break;
-            case SensorDBItem.DISCONNNECTED:
+            case SensorDBItem.DISCONNECTED:
                 viewHolder.sensorTemp.setText(R.string.connection_status_disconnected);
                 viewHolder.connectionStatus.setImageResource(R.drawable.circle_red);
                 break;

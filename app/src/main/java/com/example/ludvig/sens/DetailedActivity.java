@@ -49,8 +49,19 @@ public class DetailedActivity extends AppCompatActivity {
 
     private void setupViews(SensorDBItem sensor) {
         ((TextView) findViewById(R.id.TVname)).setText(sensor.name);
-        String formated_temp = String.format("°%.1f", sensor.temperature);
-        ((TextView) findViewById(R.id.TVtemp)).setText(formated_temp);
+        TextView sensorTemp = (TextView) findViewById(R.id.TVtemp);
+
+        switch(sensor.connectionStatus) {
+            case SensorDBItem.UNINITIALIZED:
+                sensorTemp.setText(R.string.connection_status_uninitialized);
+                break;
+            case SensorDBItem.DISCONNECTED:
+                sensorTemp.setText(R.string.connection_status_disconnected);
+                break;
+            case SensorDBItem.CONNECTED:
+                String formatedTemp = String.format("°%.1f", sensor.temperature);
+                sensorTemp.setText(formatedTemp);
+        }
     }
 
 
