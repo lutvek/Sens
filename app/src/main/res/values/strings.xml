@@ -6,8 +6,6 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="sensor_edit_button">Edit</string>
 
@@ -17,4 +15,8 @@
         <item>Refrigerator</item>
         <item>Indoors</item>
     </string-array>
+
+    <string name="connection_status_disconnected">Not Connected</string>
+    <string name="connection_status_uninitialized">Uninitialized</string>
+
 </resources>

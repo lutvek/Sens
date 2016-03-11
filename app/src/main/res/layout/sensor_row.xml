@@ -2,51 +2,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="100dp"
-    android:descendantFocusability="blocksDescendants"
-    android:background="@drawable/border">
+    android:background="@drawable/border"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
-        android:src="@drawable/circle_green"
-        android:id="@+id/circle_active"
+        android:id="@+id/connected"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView android:id="@+id/sensor_name"
-        android:text="test"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:maxWidth="80dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
-        android:layout_toRightOf="@id/circle_active"
-        android:layout_marginLeft="10dp"
-        android:textSize="25dp"
-        android:fontFamily="Raleway-light"
-        />
-        <TextView
-            android:text="temp"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/sensor_temp"
-            android:maxWidth="100dp"
-            android:textSize="25dp"
-            />
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/circle_green" />
 
+    <TextView
+        android:id="@+id/sensor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/connected"
+        android:fontFamily="Raleway-light"
+        android:maxWidth="80dp"
+        android:text="test"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp" />
 
     <Switch
+        android:id="@+id/notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/notifications"
-        android:layout_marginRight="30dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="notificationSwitch"
-        android:checked="false" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:checked="false"
+        android:onClick="notificationSwitch" />
+
+    <TextView
+        android:id="@+id/sensor_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="temp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp" />
 </RelativeLayout>

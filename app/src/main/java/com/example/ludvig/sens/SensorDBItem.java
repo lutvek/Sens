@@ -9,6 +9,10 @@ package com.example.ludvig.sens;
  */
 public class SensorDBItem {
 
+    public static final int CONNECTED = 1;
+    public static final int DISCONNNECTED = -1;
+    public static final int UNINITIALIZED = 0;
+
     public Long _id; // for cupboard
     public String name; // name of sensor
     public String sensId; // Id of sensor
@@ -16,7 +20,7 @@ public class SensorDBItem {
     public double minTemp;
     public double temperature; // current temperature of sensor
     public boolean pushNotifications;
-    // TODO add array with temperatures over 24 hours
+    public int connectionStatus;
 
     // create sensor to add in db
     public SensorDBItem(String name, String sensId, double maxTemp, double minTemp, boolean pushNotifications) {
@@ -25,6 +29,7 @@ public class SensorDBItem {
         this.maxTemp = maxTemp;
         this.minTemp = minTemp;
         this.pushNotifications = pushNotifications;
+        this.connectionStatus = UNINITIALIZED;
     }
 
     // zero argument constructor (required)
@@ -35,5 +40,6 @@ public class SensorDBItem {
         this.maxTemp = 0;
         this.temperature = 20;
         this.pushNotifications = false;
+        this.connectionStatus = UNINITIALIZED;
     }
 }

@@ -19,9 +19,10 @@ public class UpdateSensorService extends IntentService {
     }
 
     public static SQLiteDatabase db;
+    public static final String SENSOR_UPDATE = "com.example.ludvig.sens.SENSOR_UPDATE";
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent incoming_intent) {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         db = databaseHelper.getWritableDatabase();
@@ -53,6 +54,7 @@ public class UpdateSensorService extends IntentService {
                 connection.disconnect();
 
                 sensor.temperature = temp;
+                sensor.connectionStatus = SensorDBItem.CONNECTED;
 
                 MainActivity.updateSensor(sensor, db);
 
@@ -60,8 +62,10 @@ public class UpdateSensorService extends IntentService {
             } catch (Exception ignored) {}
         }
 
-        db.close();
+        Intent broadcast_intent = new Intent(SENSOR_UPDATE);
+        sendBroadcast(broadcast_intent);
 
+        db.close();
     }
 
     // Reads an InputStream and converts it to a String.

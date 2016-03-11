@@ -134,7 +134,6 @@ public class EditActivity extends AppCompatActivity {
         CharSequence text = cur_sensor.name + " deleted!";
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

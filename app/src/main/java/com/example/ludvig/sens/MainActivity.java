@@ -1,16 +1,17 @@
 package com.example.ludvig.sens;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,22 +20,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 import nl.qbusict.cupboard.QueryResultIterable;
 
@@ -44,9 +43,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public final static String EXTRA_ID = "com.example.ludvig.sens.EXTRA_ID";
+    public final static int UPDATE_FREQUENCY = 60000; // 1 minute
 
     public static SQLiteDatabase db;
-    // Tag used for debug messages
     private static final String TAG = "Sens";
 
     @Override
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         // we have our own logo, so we hide the title
         getSupportActionBar().setTitle(null);
+
 
         /* adding menu */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,20 +78,34 @@ public class MainActivity extends AppCompatActivity
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        // display sensors in content_main.xml
-
         displaySensors(db);
 
-        // add fonts to page
         addFonts();
 
         registerUpdateAlarm();
     }
 
+    @Override
     public void onResume() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UpdateSensorService.SENSOR_UPDATE);
+        registerReceiver(receiver, filter);
         displaySensors(db);
         super.onResume();
     }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(receiver);
+        super.onPause();
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     /***************************** LAYOUT OPTIONS ************************/
 
@@ -163,16 +177,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // Display sensors in db to content_main.xml
     private void displaySensors (SQLiteDatabase db) {
-
-        // Find the listview in the layout
         final ListView listView = (ListView) findViewById(R.id.listview);
 
-        // Create and populate a list of Sensors
         ArrayList<SensorDBItem> list = new ArrayList<>();
 
-        // output sensors in database to main_content
         Cursor sensors = cupboard().withDatabase(db).query(SensorDBItem.class).getCursor();
         QueryResultIterable<SensorDBItem> itr = null;
         try {
@@ -204,15 +213,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    // TODO Removing this removes the three dots menu, but also makes the logo not centered.
-    /*
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    */
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -244,13 +244,12 @@ public class MainActivity extends AppCompatActivity
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         long firstMillis = System.currentTimeMillis();
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, 300000, pendingIntent); //3000000 = 5 minutes in milliseconds
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, UPDATE_FREQUENCY, pendingIntent);
     }
 
     /**************************** CLASSES *****************************/
 
     private class SensorListClickListener implements AdapterView.OnItemClickListener {
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             SensorDBItem sensor = (SensorDBItem) parent.getItemAtPosition(position);
@@ -262,20 +261,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private class SensorListLongClickListener implements AdapterView.OnItemLongClickListener {
-
-        /**
-         * Callback method to be invoked when an item in this view has been
-         * clicked and held.
-         * <p/>
-         * Implementers can call getItemAtPosition(position) if they need to access
-         * the data associated with the selected item.
-         *
-         * @param parent   The AbsListView where the click happened
-         * @param view     The view within the AbsListView that was clicked
-         * @param position The position of the view in the list
-         * @param id       The row id of the item that was clicked
-         * @return true if the callback consumed the long click, false otherwise
-         */
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
             SensorDBItem sensor = (SensorDBItem) parent.getItemAtPosition(position);
@@ -307,18 +292,34 @@ public class MainActivity extends AppCompatActivity
             TextView sensor_name = (TextView) convertView.findViewById(R.id.sensor_name);
             TextView sensor_temp = (TextView) convertView.findViewById(R.id.sensor_temp);
             Switch notifications = (Switch) convertView.findViewById(R.id.notifications);
+            ImageView connected = (ImageView) convertView.findViewById(R.id.connected);
+
+            Typeface faceLight = Typeface.createFromAsset(getAssets(),
+                    "fonts/Raleway-Light.ttf");
+
+            sensor_name.setText(sensor.name);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 notifications.setChecked(sensor.pushNotifications);
             }
-            // set text
-            sensor_name.setText(sensor.name);
-            String formated_temp = String.format("°%.1f", sensor.temperature);
 
-            sensor_temp.setText(formated_temp);
-            // set fonts
-            Typeface faceLight = Typeface.createFromAsset(getAssets(),
-                    "fonts/Raleway-Light.ttf");
+            switch (sensor.connectionStatus){
+                case SensorDBItem.UNINITIALIZED:
+                    sensor_temp.setText(R.string.connection_status_uninitialized);
+                    connected.setImageResource(R.drawable.circle_yellow);
+                    break;
+                case SensorDBItem.DISCONNNECTED:
+                    sensor_temp.setText(R.string.connection_status_disconnected);
+                    connected.setImageResource(R.drawable.circle_red);
+                    break;
+                case SensorDBItem.CONNECTED:
+                    String formated_temp = String.format("°%.1f", sensor.temperature);
+                    sensor_temp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
+                    sensor_temp.setText(formated_temp);
+                    connected.setImageResource(R.drawable.circle_green);
+                    break;
+            }
+
             sensor_name.setTypeface(faceLight);
             sensor_temp.setTypeface(faceLight);
 
