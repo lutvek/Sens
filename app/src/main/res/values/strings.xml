@@ -17,6 +17,6 @@
     </string-array>
 
     <string name="connection_status_disconnected">Not Connected</string>
-    <string name="connection_status_uninitialized">Uninitialized</string>
+    <string name="connection_status_uninitialized">Connecting...</string>
 
 </resources>

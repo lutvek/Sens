@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            displaySensors(db);
             Toast.makeText(context, "Updated!", Toast.LENGTH_SHORT).show();
         }
     };
@@ -272,59 +273,4 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
     }
-
-    // sensor adapter for displaying sensors in main_content
-    private class SensorAdapter extends ArrayAdapter<SensorDBItem> {
-
-        public SensorAdapter(Context context, List<SensorDBItem> objects) {
-            super(context, 0, objects);
-        }
-
-        // Bad implementation
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            SensorDBItem sensor = getItem(position);
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.sensor_row, parent, false);
-            }
-
-            TextView sensor_name = (TextView) convertView.findViewById(R.id.sensor_name);
-            TextView sensor_temp = (TextView) convertView.findViewById(R.id.sensor_temp);
-            Switch notifications = (Switch) convertView.findViewById(R.id.notifications);
-            ImageView connected = (ImageView) convertView.findViewById(R.id.connected);
-
-            Typeface faceLight = Typeface.createFromAsset(getAssets(),
-                    "fonts/Raleway-Light.ttf");
-
-            sensor_name.setText(sensor.name);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                notifications.setChecked(sensor.pushNotifications);
-            }
-
-            switch (sensor.connectionStatus){
-                case SensorDBItem.UNINITIALIZED:
-                    sensor_temp.setText(R.string.connection_status_uninitialized);
-                    connected.setImageResource(R.drawable.circle_yellow);
-                    break;
-                case SensorDBItem.DISCONNNECTED:
-                    sensor_temp.setText(R.string.connection_status_disconnected);
-                    connected.setImageResource(R.drawable.circle_red);
-                    break;
-                case SensorDBItem.CONNECTED:
-                    String formated_temp = String.format("°%.1f", sensor.temperature);
-                    sensor_temp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
-                    sensor_temp.setText(formated_temp);
-                    connected.setImageResource(R.drawable.circle_green);
-                    break;
-            }
-
-            sensor_name.setTypeface(faceLight);
-            sensor_temp.setTypeface(faceLight);
-
-            return convertView;
-        }
-    }
-
 }
