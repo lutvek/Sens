@@ -22,7 +22,7 @@
         android:textSize="20dp" />
 
     <EditText
-        android:inputType="text"
+        android:inputType="text|textCapSentences"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sensor_spinner"
         android:layout_toRightOf="@id/min_temp_text"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         android:id="@+id/min_temp"
         android:layout_marginTop="6dp"
         android:gravity="right"/>
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sensor_spinner"
         android:layout_toRightOf="@id/max_temp_text"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         android:id="@+id/max_temp"
         android:layout_marginTop="6dp"
         android:gravity="right"/>
@@ -142,9 +142,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:id="@+id/accept_button"
+            android:id="@+id/cancel_button"
             android:background="@drawable/button1"
-            android:onClick="back"
+            android:onClick="cancel"
             />
 
         <Button
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:text="Accept"
             android:layout_marginLeft="100dp"
-            android:id="@+id/cancel_button"
+            android:id="@+id/accept_button"
             android:background="@drawable/button1"
             android:onClick="addNewSensor"
          />

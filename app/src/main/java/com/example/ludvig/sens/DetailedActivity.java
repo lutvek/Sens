@@ -49,8 +49,8 @@ public class DetailedActivity extends AppCompatActivity {
 
     private void setupViews(SensorDBItem sensor) {
         ((TextView) findViewById(R.id.TVname)).setText(sensor.name);
-        String formated_temp = String.format("%.1f", sensor.temperature);
-        ((TextView) findViewById(R.id.TVtemp)).setText("°" + formated_temp);
+        String formated_temp = String.format("°%.1f", sensor.temperature);
+        ((TextView) findViewById(R.id.TVtemp)).setText(formated_temp);
     }
 
 

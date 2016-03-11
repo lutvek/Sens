@@ -54,12 +54,14 @@ public class UpdateSensorService extends IntentService {
 
                 sensor.temperature = temp;
 
-                MainActivity.updateSensorTemp(sensor, db);
+                MainActivity.updateSensor(sensor, db);
 
                 if(is != null) is.close();
             } catch (Exception ignored) {}
         }
-        
+
+        db.close();
+
     }
 
     // Reads an InputStream and converts it to a String.

@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         ListView listView = (ListView) findViewById(R.id.listview);
 
         listView.setOnItemClickListener(new SensorListClickListener());
+        listView.setOnItemLongClickListener(new SensorListLongClickListener());
 
         // instantiate database helper
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         return cupboard().withDatabase(db).put(sensor);
     }
 
-    public static void updateSensorTemp(SensorDBItem sensor, SQLiteDatabase db) {
+    public static void updateSensor(SensorDBItem sensor, SQLiteDatabase db) {
         cupboard().withDatabase(db).put(sensor);
     }
 
@@ -260,6 +261,33 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private class SensorListLongClickListener implements AdapterView.OnItemLongClickListener {
+
+        /**
+         * Callback method to be invoked when an item in this view has been
+         * clicked and held.
+         * <p/>
+         * Implementers can call getItemAtPosition(position) if they need to access
+         * the data associated with the selected item.
+         *
+         * @param parent   The AbsListView where the click happened
+         * @param view     The view within the AbsListView that was clicked
+         * @param position The position of the view in the list
+         * @param id       The row id of the item that was clicked
+         * @return true if the callback consumed the long click, false otherwise
+         */
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            SensorDBItem sensor = (SensorDBItem) parent.getItemAtPosition(position);
+            Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+
+            intent.putExtra(EXTRA_ID, sensor._id);
+            startActivity(intent);
+            // Should I return true here?
+            return true;
+        }
+    }
+
     // sensor adapter for displaying sensors in main_content
     private class SensorAdapter extends ArrayAdapter<SensorDBItem> {
 
@@ -285,7 +313,7 @@ public class MainActivity extends AppCompatActivity
             }
             // set text
             sensor_name.setText(sensor.name);
-            String formated_temp = String.format("%.1f", sensor.temperature);
+            String formated_temp = String.format("°%.1f", sensor.temperature);
 
             sensor_temp.setText(formated_temp);
             // set fonts

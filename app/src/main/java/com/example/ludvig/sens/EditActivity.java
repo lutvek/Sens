@@ -5,13 +5,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -48,11 +51,27 @@ public class EditActivity extends AppCompatActivity {
         EditText enterID = (EditText) findViewById(R.id.newSensorID);
         enterID.setText(cur_sensor.sensId);
 
-        EditText maxTempText = (EditText) findViewById(R.id.max_temp);
-        maxTempText.setText(String.valueOf(cur_sensor.maxTemp));
+        EditText maxTemp = (EditText) findViewById(R.id.max_temp);
+        maxTemp.setText(String.valueOf(cur_sensor.maxTemp));
 
-        EditText minTempText = (EditText) findViewById(R.id.min_temp);
-        minTempText.setText(String.valueOf(cur_sensor.minTemp));
+        EditText minTemp = (EditText) findViewById(R.id.min_temp);
+        minTemp.setText(String.valueOf(cur_sensor.minTemp));
+
+        ArrayList<EditText> editTexts = new ArrayList<>();
+
+        editTexts.add(enterName);
+        editTexts.add(enterID);
+        editTexts.add(maxTemp);
+        editTexts.add(minTemp);
+
+        Button button = (Button) findViewById(R.id.accept_button);
+
+        TextValidator textValidator = new TextValidator(editTexts, button);
+
+        enterName.addTextChangedListener(textValidator);
+        enterID.addTextChangedListener(textValidator);
+        maxTemp.addTextChangedListener(textValidator);
+        minTemp.addTextChangedListener(textValidator);
 
         addFonts();
     }
@@ -70,7 +89,7 @@ public class EditActivity extends AppCompatActivity {
         tv.setTypeface(faceLight);
         tv = (TextView) findViewById(R.id.min_temp_text);
         tv.setTypeface(faceLight);
-        tv = (TextView) findViewById(R.id.allow_alarm_text);
+        tv = (TextView) findViewById(R.id.allow_alarm);
         tv.setTypeface(faceLight);
 
         Typeface faceRegular = Typeface.createFromAsset(getAssets(),
@@ -84,13 +103,29 @@ public class EditActivity extends AppCompatActivity {
         tv.setTypeface(faceRegular);
     }
 
-    public void addNewSensor(View view) {
+    public void acceptChanges(View view) {
+
+        EditText sensor_name = (EditText) findViewById(R.id.newSensorName);
+        EditText sensor_id = (EditText) findViewById(R.id.newSensorID);
+        EditText sensor_max = (EditText) findViewById(R.id.max_temp);
+        EditText sensor_min = (EditText) findViewById(R.id.min_temp);
+        Switch sensor_notifications = (Switch) findViewById(R.id.allow_alarm);
+
+        cur_sensor.name = sensor_name.getText().toString();
+        cur_sensor.sensId = sensor_id.getText().toString();
+        cur_sensor.maxTemp = Double.valueOf(sensor_max.getText().toString());
+        cur_sensor.minTemp = Double.valueOf(sensor_min.getText().toString());
+        cur_sensor.pushNotifications = sensor_notifications.isChecked();
+
+        MainActivity.updateSensor(cur_sensor, db);
+        db.close();
+
         CharSequence text = "Note: Will use development sensor id to fetch data";
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
         finish();
     }
 
-    public void back(View view) {
+    public void cancel(View view) {
         finish();
     }
 

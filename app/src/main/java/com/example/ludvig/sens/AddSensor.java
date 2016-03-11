@@ -3,12 +3,21 @@ package com.example.ludvig.sens;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddSensor extends AppCompatActivity {
 
@@ -18,19 +27,42 @@ public class AddSensor extends AppCompatActivity {
         setContentView(R.layout.activity_add_sensor);
 
         Spinner spinner = (Spinner) findViewById(R.id.sensor_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sensors_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        // add fonts
-        addFonts();
+
+        setupValidator();
+
+        setFonts();
     }
 
-    private void addFonts() {
+    private void setupValidator(){
+        final Button button = (Button) findViewById(R.id.accept_button);
+        button.setEnabled(false);
+
+        final EditText sensor_name = (EditText) findViewById(R.id.newSensorName);
+        final EditText sensor_id = (EditText) findViewById(R.id.newSensorID);
+        final EditText min_temp = (EditText) findViewById(R.id.min_temp);
+        final EditText max_temp = (EditText) findViewById(R.id.max_temp);
+
+        ArrayList<EditText> editTexts = new ArrayList<>();
+
+        editTexts.add(sensor_name);
+        editTexts.add(sensor_id);
+        editTexts.add(min_temp);
+        editTexts.add(max_temp);
+
+        TextValidator validator = new TextValidator(editTexts, button);
+
+        sensor_name.addTextChangedListener(validator);
+        sensor_id.addTextChangedListener(validator);
+        min_temp.addTextChangedListener(validator);
+        max_temp.addTextChangedListener(validator);
+    }
+
+    private void setFonts() {
         TextView tv = (TextView) findViewById(R.id.enter_name);
         Typeface faceLight = Typeface.createFromAsset(getAssets(),
                 "fonts/Raleway-Light.ttf");
@@ -56,7 +88,7 @@ public class AddSensor extends AppCompatActivity {
     }
 
     // clicking cancel
-    public void back(View view) {
+    public void cancel(View view) {
         finish();
     }
 
@@ -83,4 +115,5 @@ public class AddSensor extends AppCompatActivity {
 
         finish();
     }
+
 }

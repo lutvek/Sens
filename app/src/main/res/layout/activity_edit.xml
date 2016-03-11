@@ -9,23 +9,21 @@
     android:paddingTop="@dimen/activity_bottom_margin"
     tools:context="com.example.ludvig.sens.EditActivity">
 
-    <TextView
+    <TextView android:id="@+id/enter_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
         android:textColor="@color/colorPrimary"
-        android:id="@+id/enter_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="20dp" />
 
-    <EditText
-        android:inputType="text"
+    <EditText android:id="@+id/newSensorName"
+        android:inputType="text|textCapSentences"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/newSensorName"
         android:layout_below="@+id/enter_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -40,12 +38,11 @@
         android:layout_below="@+id/newSensorName"
         android:layout_marginTop="15dp" />
 
-    <EditText
+    <EditText android:id="@+id/newSensorID"
         android:inputType="text"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/newSensorID"
         android:layout_below="@+id/enter_id"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -81,14 +78,13 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="16dp"/>
 
-    <EditText
+    <EditText android:id="@+id/min_temp"
         android:layout_width="40dp"
         android:layout_marginLeft="4dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/sensor_spinner"
         android:layout_toRightOf="@id/min_temp_text"
-        android:inputType="numberDecimal"
-        android:id="@+id/min_temp"
+        android:inputType="numberDecimal|numberSigned"
         android:layout_marginTop="6dp"
         android:gravity="right"/>
 
@@ -110,17 +106,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sensor_spinner"
         android:layout_toRightOf="@id/max_temp_text"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         android:id="@+id/max_temp"
         android:layout_marginTop="6dp"
         android:gravity="right"/>
 
-    <Switch
+    <Switch android:id="@+id/allow_alarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
         android:text="Allow push notifications"
-        android:id="@+id/allow_alarm_text"
         android:textSize="20dp"
         android:allowUndo="false"
         android:layout_marginTop="30dp"
@@ -141,7 +136,7 @@
             android:layout_height="wrap_content"
             android:text="delete"
             android:layout_toLeftOf="@id/cancel_button"
-            android:id="@+id/accept_button"
+            android:id="@+id/delete_button"
             android:background="@drawable/button_delete"
             android:onClick="deleteSensor"
             />
@@ -155,7 +150,7 @@
             android:layout_marginRight="10dp"
             android:id="@+id/cancel_button"
             android:background="@drawable/button1"
-            android:onClick="back"
+            android:onClick="cancel"
             />
 
         <Button
@@ -163,9 +158,9 @@
             android:layout_height="wrap_content"
             android:text="Accept"
             android:layout_toRightOf="@id/cancel_button"
-            android:id="@+id/delete_button"
+            android:id="@+id/accept_button"
             android:background="@drawable/button1"
-            android:onClick="addNewSensor"
+            android:onClick="acceptChanges"
             />
     </RelativeLayout>
 
